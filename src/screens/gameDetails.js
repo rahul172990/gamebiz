@@ -34,6 +34,7 @@ const GameDetails = () => {
   const gameRef = useRef(null);
   const [value, setValue] = useState("");
   const [gamesFiltered, setSearchedGames] = useState(null);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   useEffect(() => {
     axios
@@ -64,9 +65,11 @@ const GameDetails = () => {
         onChange={(e) => {
           setValue(e?.target?.value);
         }}
+        onClick={() => {
+          setOpenSidebar((pre) => !pre);
+        }}
       />
-
-      <Layout sidebar>
+      <Layout sidebar openSidebar={openSidebar}>
         <div className="App">
           {gamesFiltered?.length > 0 ? (
             <div className="gamelist">
@@ -141,10 +144,9 @@ const GameDetails = () => {
                               <img
                                 src={GameLogo}
                                 alt="S"
+                                className="detail_img_game"
                                 style={{
                                   height: 80,
-                                  width: 520,
-                                  marginTop: 70,
                                   opacity: 1,
                                   filter: `blur(0px)`,
                                 }}
@@ -168,23 +170,6 @@ const GameDetails = () => {
                                 onClick={() => {
                                   gameRef?.current?.play();
                                   setShowIframe(true);
-
-                                  setTimeout(() => {
-                                    let iframe =
-                                      document?.getElementById("game_iframe");
-
-                                    console?.log("iframeiframe === ", iframe);
-
-                                    //find button inside iframe
-                                    let button = iframe
-                                      .contents()
-                                      .find("#pluto-splash-button");
-
-                                    //trigger button click
-                                    button.trigger("click");
-
-                                    console.log("CLCLCLCLCLCCL");
-                                  }, 2000);
                                 }}
                                 style={{
                                   height: 40,
@@ -213,8 +198,7 @@ const GameDetails = () => {
                         <img
                           src={Smallhumbnail}
                           alt="iframe_thumb"
-                          height={50}
-                          width={72}
+                          className="thumb_image"
                         />
                         <span
                           style={{

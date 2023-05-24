@@ -7,6 +7,9 @@ import Layout from "../components/Layout";
 
 const Contact = () => {
   const [termDescription, setTermDescription] = useState(null);
+  const [openSidebar, setOpenSidebar] = useState(false);
+
+  const [value, setValue] = useState("");
   useEffect(() => {
     axios
       .get("http://144.126.253.65:3000/customer/get-settings?skip=0&limit=10")
@@ -18,8 +21,16 @@ const Contact = () => {
 
   return (
     <>
-      <CustomeHeader />
-      <Layout>
+      <CustomeHeader
+        searchValue={value}
+        onChange={(e) => {
+          setValue(e?.target?.value);
+        }}
+        onClick={() => {
+          setOpenSidebar((pre) => !pre);
+        }}
+      />
+      <Layout sidebar openSidebar={openSidebar}>
         <div
           style={{
             background: "white",

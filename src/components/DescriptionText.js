@@ -1,21 +1,29 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const DescriptionText = () => {
+  const [settingsData, setSettings] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("http://144.126.253.65:3000/customer/get-settings")
+      .then((res) => setSettings(res?.data?.data))
+      .catch((e) => console.log(e));
+  }, []);
+
   return (
     <div className="descriptionText">
-      <p>
-        Welcome to Gamebiz.com! Our website is the leading platform for free
-        online gaming, hosting both casual games that you can play to kill time
-        when you are bored, as well as more complex adventures, where you need
-        to save your game and that take many hours to be completed. We publish
-        new videogames every month and currently have more than 1.000 which you
-        can freely play, without any download or installation. Our games can be
-        played on any device or browser. Among players' favorites on gamepix.com
-        you will find classic games like Minecraft and Krunker as well as
-        awesome adventures like Fireboy and Watergirl and Little Alchemy. Our
-        games are divided in categories, it is therefore easy for players all
-        around the world to have fun with many io games, gun games or car games.
-      </p>
+      {/* <div
+        style={{
+          background: "white",
+          padding: 50,
+          marginTop: 50,
+        }}
+        dangerouslySetInnerHTML={{
+          __html: settingsData?.[0]?.homeDescription,
+        }}
+      /> */}
+      <p>{settingsData?.[0]?.homeDescription}</p>
     </div>
   );
 };

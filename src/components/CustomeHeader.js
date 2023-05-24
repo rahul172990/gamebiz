@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { type } from "@testing-library/user-event/dist/type";
 import HeaderTags from "./HeaderTags";
-
+import ListIcon from "@mui/icons-material/List";
 const COLORS = ["#ffc01b", "#00d97b", "#00d0fd", "#e25151", "#9a3aad"];
 const COLORS2 = ["#e25151", "#9a3aad", "#ffc01b", "#00d97b", "#00d0fd"];
 
@@ -15,7 +15,7 @@ function getWindowSize() {
   const { innerWidth, innerHeight } = window;
   return { innerWidth, innerHeight };
 }
-const CustomeHeader = ({ searchValue, onChange }) => {
+const CustomeHeader = ({ searchValue, onChange, onClick }) => {
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState(1);
   const [tagsData, setTagsData] = useState(null);
@@ -23,7 +23,6 @@ const CustomeHeader = ({ searchValue, onChange }) => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   const getTagsCount = () => {
-    console?.log("windowSize ", typeof windowSize?.innerWidth);
     // if (windowSize?.innerWidth > 1024 && windowSize?.innerWidth < 1600) {
     //   console.log("xscsc 1200");
     //   return 3;
@@ -77,20 +76,25 @@ const CustomeHeader = ({ searchValue, onChange }) => {
 
   return (
     <header className="header_style">
-      <div>
-        <img
-          src={Logo}
-          alt="logo"
-          className="header_logo"
-          onClick={() => {
-            navigate("/");
-          }}
-        />
+      <div className="menu-style">
+        <div className="show_menu" onClick={onClick}>
+          <ListIcon fontSize="large" />
+        </div>
+        <div>
+          <img
+            src={Logo}
+            alt="logo"
+            className="header_logo"
+            onClick={() => {
+              navigate("/");
+            }}
+          />
+        </div>
       </div>
-      <div>
+      <div className="hide_headerTags">
         <HeaderTags tagsData={tagsData} />
       </div>
-      <div>
+      <div className="hide_headerTags">
         <div className="header_search">
           <input
             placeholder="Search..."

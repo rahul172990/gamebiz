@@ -42,9 +42,15 @@ const sidebar_tags_icons = [
   Random,
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ openSidebar }) => {
   const [tagsData, setTagsData] = useState();
   const navigate = useNavigate();
+
+  const [windowSize, setWindowSize] = useState([
+    window.innerWidth,
+    window.innerHeight,
+  ]);
+
   useEffect(() => {
     axios
       .get("http://144.126.253.65:3000/customer/get-tags")
@@ -52,8 +58,24 @@ const Sidebar = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
   return (
-    <div className="sidebar_style">
+    <div
+      className="sidebar_style"
+      style={{
+        display: !openSidebar && windowSize?.[0] < 768 && "none",
+      }}
+    >
       <h3
         style={{
           marginLeft: 20,

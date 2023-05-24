@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 import imageLogo2 from "../images/game_image.jpg";
+import ReactPaginate from "react-paginate";
 
 import g1 from "../images/g1.png";
 import g3 from "../images/g3.jpg";
@@ -16,6 +17,7 @@ import g7 from "../images/g7.jpg";
 import g8 from "../images/g8.jpg";
 import g9 from "../images/g9.jpg";
 import DescriptionText from "../components/DescriptionText";
+import { Pagination, Stack, TablePagination } from "@mui/material";
 
 const images_array = [g1, g3, g9, g5, g6, g7, g8, g4];
 
@@ -26,10 +28,37 @@ const GamesByTag = () => {
   const [tagData, setTagData] = useState(null);
   const [game, setGames] = useState(null);
   const [totalGamesCount, setTotalGamesCount] = useState(null);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   const [limit, setLimit] = useState(10);
   const [value, setValue] = useState("");
   const [gamesFiltered, setSearchedGames] = useState(null);
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (newPage) => {
+    console.log("ppppppp === ", newPage);
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event?.target?.value, 10));
+    setPage(0);
+  };
+
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `http://144.126.253.65:3000/customer/get-games-by-tag/${
+  //         location?.state?.data
+  //       }?skip=${10 * page}&limit=10`
+  //     )
+  //     .then((res) => {
+  //       setData(res?.data?.data);
+  //     })
+  //     .catch((e) => console.log(e));
+  // }, [page]);
 
   useEffect(() => {
     axios
@@ -83,9 +112,11 @@ const GamesByTag = () => {
         onChange={(e) => {
           setValue(e?.target?.value);
         }}
+        onClick={() => {
+          setOpenSidebar((pre) => !pre);
+        }}
       />
-
-      <Layout sidebar>
+      <Layout sidebar openSidebar={openSidebar}>
         <div className="App">
           {gamesFiltered?.length > 0 ? (
             <div class="gamelist">
@@ -167,29 +198,24 @@ const GamesByTag = () => {
                 <div></div>
               </div>
 
-              <div
+              {/* <div
                 style={{
                   background: "white",
                   padding: 50,
                   marginTop: 50,
                 }}
                 dangerouslySetInnerHTML={{ __html: tagData?.description }}
-              />
+              /> */}
 
-              {/* <div className="descriptionText">
-                <h3>WHAT ARE {tagData?.title?.toUpperCase()} GAMES?</h3>
-                <span
-                  style={{
-                    fontSize: 12,
-                    // color: "#237cd8",
-                    fontWeight: 200,
-                  }}
-                >
-                  ONLINE FREE GAMES - {tagData?.title?.toUpperCase()}
-                </span>
+              {/* <TablePagination
+                component="div"
+                count={data?.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              /> */}
 
-                <p>{tagData?.metaDescription}</p>
-              </div> */}
               <DescriptionText />
 
               <Footer />

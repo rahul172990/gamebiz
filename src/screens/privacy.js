@@ -7,6 +7,9 @@ import Layout from "../components/Layout";
 
 const Privacy = () => {
   const [privacyDescription, setPrivacyDescription] = useState(null);
+  const [openSidebar, setOpenSidebar] = useState(false);
+
+  const [value, setValue] = useState("");
   useEffect(() => {
     axios
       .get("http://144.126.253.65:3000/customer/get-settings?skip=0&limit=10")
@@ -18,9 +21,16 @@ const Privacy = () => {
 
   return (
     <>
-      <CustomeHeader />
-
-      <Layout>
+      <CustomeHeader
+        searchValue={value}
+        onChange={(e) => {
+          setValue(e?.target?.value);
+        }}
+        onClick={() => {
+          setOpenSidebar((pre) => !pre);
+        }}
+      />
+      <Layout sidebar openSidebar={openSidebar}>
         <div
           style={{
             background: "white",

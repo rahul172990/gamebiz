@@ -35,6 +35,7 @@ const HomeScreen = () => {
   ]);
   const [tagsData, setTagsData] = useState(null);
   const [homeTags, setHomeTags] = useState(null);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   const [game, setGames] = useState(null);
   const [value, setValue] = useState("");
@@ -86,8 +87,6 @@ const HomeScreen = () => {
       return 9;
     }
   };
-
-  console.log("homeTagshomeTags === ", homeTags);
 
   const settings = {
     dots: false,
@@ -145,8 +144,11 @@ const HomeScreen = () => {
         onChange={(e) => {
           setValue(e?.target?.value);
         }}
+        onClick={() => {
+          setOpenSidebar((pre) => !pre);
+        }}
       />
-      <Layout sidebar>
+      <Layout sidebar openSidebar={openSidebar}>
         <div className="App">
           {gamesFiltered?.length > 0 ? (
             <div class="gamelist">
