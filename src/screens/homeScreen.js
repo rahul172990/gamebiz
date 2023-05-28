@@ -266,7 +266,7 @@ const HomeScreen = () => {
               {/* <Footer /> */}
             </>
           )}
-          <DescriptionText />
+          <DescriptionText data={settingsData?.[0]?.homeDescription} />
 
           <Footer />
           <div

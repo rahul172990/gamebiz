@@ -31,14 +31,16 @@ const Privacy = () => {
         }}
       />
       <Layout sidebar openSidebar={openSidebar}>
-        <div
-          style={{
-            background: "white",
-            padding: 50,
-          }}
-          dangerouslySetInnerHTML={{ __html: privacyDescription }}
-        />
-        <Footer />
+        <div className="App">
+          <div
+            style={{
+              background: "white",
+              padding: 50,
+            }}
+            dangerouslySetInnerHTML={{ __html: privacyDescription }}
+          />
+          <Footer />
+        </div>
       </Layout>
     </>
   );

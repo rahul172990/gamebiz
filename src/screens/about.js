@@ -31,14 +31,16 @@ const About = () => {
         }}
       />
       <Layout sidebar openSidebar={openSidebar}>
-        <div
-          style={{
-            background: "white",
-            padding: 50,
-          }}
-          dangerouslySetInnerHTML={{ __html: contactData }}
-        />
-        <Footer />
+        <div className="App">
+          <div
+            style={{
+              background: "white",
+              padding: 50,
+            }}
+            dangerouslySetInnerHTML={{ __html: contactData }}
+          />
+          <Footer />
+        </div>
       </Layout>
     </>
   );

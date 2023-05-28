@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../assets/Logo.png";
-import SearchIcon from "../assets/Search_Icon.png";
-
+import SearchIcon1 from "../assets/Search_Icon.png";
+import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
 import RunImage from "../images/gg-removebg-preview.png";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { type } from "@testing-library/user-event/dist/type";
 import HeaderTags from "./HeaderTags";
 import ListIcon from "@mui/icons-material/List";
+import { Button, IconButton } from "@mui/material";
 const COLORS = ["#ffc01b", "#00d97b", "#00d0fd", "#e25151", "#9a3aad"];
 const COLORS2 = ["#e25151", "#9a3aad", "#ffc01b", "#00d97b", "#00d0fd"];
 
@@ -20,6 +22,8 @@ const CustomeHeader = ({ searchValue, onChange, onClick }) => {
   const [currentTab, setCurrentTab] = useState(1);
   const [tagsData, setTagsData] = useState(null);
   const [game, setGames] = useState(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   const getTagsCount = () => {
@@ -80,15 +84,70 @@ const CustomeHeader = ({ searchValue, onChange, onClick }) => {
         <div className="show_menu" onClick={onClick}>
           <ListIcon fontSize="large" />
         </div>
+
         <div>
-          <img
-            src={Logo}
-            alt="logo"
-            className="header_logo"
-            onClick={() => {
-              navigate("/");
-            }}
-          />
+          {!isSearchOpen ? (
+            <img
+              src={Logo}
+              alt="logo"
+              className="header_logo"
+              onClick={() => {
+                navigate("/");
+              }}
+            />
+          ) : (
+            <div className="header_search hide_on_big">
+              <input
+                placeholder="Search..."
+                style={{
+                  height: 35,
+                  width: "70%",
+                  outline: "none",
+                  borderRadius: "50%",
+                  border: "none",
+                }}
+                value={searchValue}
+                onChange={onChange}
+              />
+              <img
+                src={SearchIcon1}
+                alt="search_icons"
+                style={{
+                  height: 20,
+                  width: 20,
+                }}
+              />
+            </div>
+          )}
+        </div>
+        <div className="hide_on_big">
+          {!isSearchOpen ? (
+            <IconButton
+              sx={{
+                p: 0,
+                m: 0,
+              }}
+              color="inherit"
+              onClick={() => {
+                setIsSearchOpen(true);
+              }}
+            >
+              <SearchIcon fontSize="large" />
+            </IconButton>
+          ) : (
+            <IconButton
+              onClick={() => {
+                setIsSearchOpen(false);
+              }}
+              color="inherit"
+              sx={{
+                p: 0,
+                m: 0,
+              }}
+            >
+              <ClearIcon fontSize="large" />
+            </IconButton>
+          )}
         </div>
       </div>
       <div className="hide_headerTags">
@@ -109,7 +168,7 @@ const CustomeHeader = ({ searchValue, onChange, onClick }) => {
             onChange={onChange}
           />
           <img
-            src={SearchIcon}
+            src={SearchIcon1}
             alt="search_icons"
             style={{
               height: 20,

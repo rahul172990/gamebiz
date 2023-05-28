@@ -23,6 +23,7 @@ import g7 from "../images/g7.jpg";
 import g8 from "../images/g8.jpg";
 import g9 from "../images/g9.jpg";
 import DescriptionText from "../components/DescriptionText";
+import { useFetcher } from "react-router-dom";
 
 const images_array = [g1, g3, g9, g5, g6, g7, g8, g4];
 
@@ -35,6 +36,7 @@ const GameDetails = () => {
   const [value, setValue] = useState("");
   const [gamesFiltered, setSearchedGames] = useState(null);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [descData, setDescData] = useState(null);
 
   useEffect(() => {
     axios
@@ -58,6 +60,17 @@ const GameDetails = () => {
     }
   }, [value]);
 
+  useEffect(() => {
+    axios
+      .get(
+        `http://144.126.253.65:3000/customer/get-games/${location?.state?.data?._id}`
+      )
+      .then((res) => {
+        setDescData(res?.data?.data);
+      })
+      .catch((e) => console.log(e));
+  }, [location?.state?.data]);
+
   return (
     <>
       <CustomeHeader
@@ -72,11 +85,11 @@ const GameDetails = () => {
       <Layout sidebar openSidebar={openSidebar}>
         <div className="App">
           {gamesFiltered?.length > 0 ? (
-            <div className="gamelist">
+            <div className="gamelist12">
               {gamesFiltered?.map((item) => {
                 return (
                   <div
-                    className="thumb-box222"
+                    className="thumb-box"
                     onClick={() => {
                       navigate(`/game/${item?.title?.split(" ")?.join("-")}`, {
                         state: {
@@ -311,7 +324,7 @@ const GameDetails = () => {
               </div>
             </>
           )}
-          <DescriptionText />
+          <DescriptionText data={descData?.description} />
 
           <Footer />
           <div

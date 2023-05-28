@@ -31,15 +31,17 @@ const Contact = () => {
         }}
       />
       <Layout sidebar openSidebar={openSidebar}>
-        <div
-          style={{
-            background: "white",
-            padding: 50,
-          }}
-          dangerouslySetInnerHTML={{ __html: termDescription }}
-        />
+        <div className="App">
+          <div
+            style={{
+              background: "white",
+              padding: 50,
+            }}
+            dangerouslySetInnerHTML={{ __html: termDescription }}
+          />
+          <Footer />
+        </div>
       </Layout>
-      <Footer />
     </>
   );
 };

@@ -898,7 +898,7 @@ iframe {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 90px 0 25px !important;
+    padding: 0 25px 0 10px !important;
     border-bottom: 2px solid rgb(168, 168, 168);
     position: fixed;
     top: 0;
@@ -944,5 +944,8 @@ iframe {
   .layout_right {
     margin-left: 200px;
     margin-top: 13vh;
+  }
+  .hide_on_big {
+    display: none !important;
   }
 }

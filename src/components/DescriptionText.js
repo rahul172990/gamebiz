@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const DescriptionText = () => {
+const DescriptionText = ({ data }) => {
   const [settingsData, setSettings] = useState(null);
 
   useEffect(() => {
@@ -13,17 +13,17 @@ const DescriptionText = () => {
 
   return (
     <div className="descriptionText">
-      {/* <div
+      <div
         style={{
           background: "white",
           padding: 50,
           marginTop: 50,
         }}
         dangerouslySetInnerHTML={{
-          __html: settingsData?.[0]?.homeDescription,
+          __html: data,
         }}
-      /> */}
-      <p>{settingsData?.[0]?.homeDescription}</p>
+      />
+      {/* <p>{settingsData?.[0]?.homeDescription}</p> */}
     </div>
   );
 };

@@ -33,6 +33,7 @@ const GamesByTag = () => {
   const [limit, setLimit] = useState(10);
   const [value, setValue] = useState("");
   const [gamesFiltered, setSearchedGames] = useState(null);
+  const [gamesData, setGamesData] = useState(null);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -86,6 +87,16 @@ const GamesByTag = () => {
       .then((res) => {
         setGames(res?.data?.data);
         setTotalGamesCount(res?.data?.totalCount);
+      })
+      .catch((e) => console.log(e));
+
+    axios
+      .get(
+        `http://144.126.253.65:3000/customer/get-tags/${location?.state?.data}`
+      )
+      .then((res) => {
+        setGamesData(res?.data?.data);
+        // setTotalGamesCount(res?.data?.totalCount);
       })
       .catch((e) => console.log(e));
   }, [location?.state?.data]);
@@ -216,7 +227,7 @@ const GamesByTag = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               /> */}
 
-              <DescriptionText />
+              <DescriptionText data={gamesData?.description} />
 
               <Footer />
             </>
